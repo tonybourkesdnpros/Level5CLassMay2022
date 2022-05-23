@@ -30,7 +30,8 @@
 captains = {'1701': 'Kirk',
             '1701-D': 'Picard', 
             '1864': 'Khan', 
-            '75435': 'Janeway'}
+            '75435': 'Janeway',
+            '1031': 'Burnam'}
 
 for ship in captains:
     print('The captain fo the NCC-'+ship, 'is', captains[ship])
