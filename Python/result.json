@@ -1,0 +1,28 @@
+{
+    "jsonrpc": "2.0",
+    "id": "EapiExplorer-1",
+    "result": [
+      {
+        "imageFormatVersion": "1.0",
+        "cEosToolsVersion": "1.1",
+        "uptime": 8512,
+        "modelName": "cEOSLab",
+        "kernelVersion": "5.4.132-1.el7.elrepo.x86_64",
+        "internalVersion": "4.27.2F-26069621.4272F",
+        "memTotal": 74120000,
+        "mfgName": "Arista",
+        "serialNumber": "leaf4-DC1",
+        "systemMacAddress": "00:1c:73:c4:c6:01",
+        "bootupTimestamp": 1653329294.3377085,
+        "memFree": 14853992,
+        "version": "4.27.2F-26069621.4272F (engineering build)",
+        "configMacAddress": "00:00:00:00:00:00",
+        "isIntlVersion": false,
+        "imageOptimization": "None",
+        "internalBuildId": "b3360a82-d532-4043-b6b0-50707eede2a9",
+        "hardwareRevision": "",
+        "hwMacAddress": "00:00:00:00:00:00",
+        "architecture": "i686"
+      }
+    ]
+  }

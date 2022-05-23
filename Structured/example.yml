@@ -1,0 +1,26 @@
+---
+devices:
+  leaf1-DC1:
+    interfaces:
+      loopback0: 10.1.1.11/32
+      loopback1: 10.1.2.11/32
+    BGP:
+      ASN: 65101
+  leaf2-DC1:
+    interfaces:
+      loopback0: 10.1.1.12/32
+      loopback1: 10.1.2.12/32
+    BGP: 
+      ASN: 65101
+  leaf3-DC1:
+    interfaces:
+      loopback0: 10.1.1.13/32
+      loopback1: 10.1.2.13/32
+    BGP: 
+      ASN: 65102
+  leaf4-DC1:
+    interfaces:
+      loopback0: 10.1.1.14/32
+      loopback1: 10.1.2.14/32
+    BGP: 
+      ASN: 65102
