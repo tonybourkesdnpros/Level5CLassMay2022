@@ -16,4 +16,4 @@ Same for the spines (spines1-3-DC1, spines1-3-DC2)
     int e2-7
     shut
     
-This shuts off all the connected interfaces. Wait about 20 minutes, then following the instructions in this repository: https://github.com/tonybourkesdnpros/ATD-Reset-Level5 (or just remove the configlets for OSPF manually)
+This shuts off all the connected interfaces. Wait about 20 minutes for the CPUs to settle down, then follow the instructions in this repository: https://github.com/tonybourkesdnpros/ATD-Reset-Level5 (or just remove the configlets for OSPF manually)
