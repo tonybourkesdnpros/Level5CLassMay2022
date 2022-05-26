@@ -1,0 +1,9 @@
+---
+- hosts: leaf1-DC1
+  name: Add a banner
+  tasks:
+  - name: Add message of the day banner
+    arista.eos.eos_banner:
+      banner: login
+      text: "No matter where you go, there you are"
+      state: present

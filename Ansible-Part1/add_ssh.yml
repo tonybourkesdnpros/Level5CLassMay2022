@@ -1,0 +1,18 @@
+---
+- hosts: all
+  name: Add SSH user and keys
+  tasks:
+  - name: Add user
+    arista.eos.eos_user:
+      name: automator
+      state: present
+      nopassword: yes
+      privilege: 15
+      role: network-admin
+  - name: Upload SSH keys
+    eos_user:
+      name: automator
+      state: present
+      sshkey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDS4WNkbn1TS/+LRm9LIGu6yz5TTJYqt+vf98xkgKfthOGN34iSm34EE756MKSQ8rjWREwAfsjFYms+FAIpv+wk6NHhW3Av57WUI/r0ShCIasAqFWQ0+0FVR8cwrvLujCEqVwTPivHN2wq1lG++RiyW+9UH3VS3GeJbX3LoFV+K/SQScIoEYeJ64ncvpANqlHuMzwxbpzaHavKSzGQbhG+II7FdWZN0yi5qsWBymcYy39Owf40bnta0Co+aE3x0qnSG6eIKNvbgaKlFSAZBezNvauQYCpBvvMGyE0k1tjPGgmgf5W1465RvcQpGQ7ZGvTeBYn11PUPKSykHeKExxZWqqR25Q2L5LcX2q8QYYLS4uHScs2pi1j9SQU3hz2ISCZZq8HsQZ5+9/IHPKUCwVQufmS1X4HSIEbVoZ7uZo+QQGZMG+iUZj/+M9OLRFHAtfe+vRYPcoO9unzWo64iVwg0KU+uVz08VZioe23wzCfj2f3/f0ErsgSKFgrnUs8GxLrk= coder@3d9bbc1e18b3"
+
+      
