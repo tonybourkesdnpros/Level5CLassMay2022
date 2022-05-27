@@ -1,9 +1,12 @@
 ---
-- hosts: leaf1-DC1
+- hosts: DC1, DC2
   name: Add a banner
   tasks:
   - name: Add message of the day banner
     arista.eos.eos_banner:
       banner: login
-      text: "No matter where you go, there you are"
-      state: present
+      text: "No matter where you go, there you are (from Buckaroo Bonzai)"
+  - name: Save config
+    arista.eos.eos_command:
+      commands: 
+        - copy run start

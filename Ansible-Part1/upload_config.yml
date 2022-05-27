@@ -1,0 +1,8 @@
+---
+- hosts: leaf1-DC1
+  name: Add VLANs from list
+  tasks:
+  - name: Upload VLAN config
+    eos_config:
+      src: "{{lookup('env','PWD')}}/vlan.eos"
+      save_when: always

@@ -1,0 +1,19 @@
+---
+- hosts: leaf1-DC1
+  name: Add a list of VLANs
+  tasks:
+  # - name: load vars
+  #   include_vars:
+  #     file: "{{lookup('env','PWD')}}/vlan.list"
+  #     name: vlan_list
+  - name:
+    eos_vlans:
+      config:
+        - vlan_id: "{{ item }}"
+          state: active
+      state: overridden
+    loop: 
+      - 1
+      - 100
+      - 1000
+      

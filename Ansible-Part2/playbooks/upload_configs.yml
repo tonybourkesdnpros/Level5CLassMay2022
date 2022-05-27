@@ -1,0 +1,38 @@
+---
+- hosts: DC1, DC2
+  name: Upload configs
+  tasks:
+  - name: Upload the underlay p2p and loopback configs
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_interface.cfg"
+      save_when: always
+  - name: Upload the underlay eBGP/underlay configs
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_underlay.cfg"
+      save_when: always  
+
+- hosts: left_leafs
+  name: Upload MLAG config for left leafs
+  tasks:
+  - name: Upload left leaf config
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/static/MLAG-left.cfg"
+      save_when: always
+
+- hosts: right_leafs
+  name: Upload MLAG config for left leafs
+  tasks:
+  - name: Upload right leaf config
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/static/MLAG-right.cfg"
+      save_when: always
+
+
+- hosts: leafs_DC1, leafs_DC2
+  name: Upload VXLAN Tenant configs
+  tags: VXLAN
+  tasks:
+  - name: Upload configs for Tenants on leafs
+    eos_config:
+      src: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_VXLAN.cfg"
+      save_when: always
