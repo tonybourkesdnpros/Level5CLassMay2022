@@ -1,0 +1,75 @@
+---
+- name: Create config directories
+  hosts: DC1, DC2
+  tasks:
+  - name: Create a directory if it does not exist
+    ansible.builtin.file:
+      path: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/"
+      state: directory
+
+- hosts: DC1, DC2
+  name: Generate interface configuration for underlay for leafs and spines
+  tasks:
+  - name: Load variables for underlay into dictionary
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+      name: underlay
+  - name: Load variables for mgmt into dictionary
+    tags: mgmt
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/mgmt.yml"
+      name: mgmt
+  - name: Generate interface config file from variables + template
+    template:
+      src: "{{lookup('env','PWD')}}/templates/interfaces.j2"
+      dest: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_interface.cfg"
+
+  - name: Generate mgmt config file from variables + template
+    tags: mgmt
+    template:
+      src: "{{lookup('env','PWD')}}/templates/mgmt.j2"
+      dest: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_mgmt.cfg"
+
+- hosts: leafs_DC1, leafs_DC2
+  name: Generate underlay/EVPN config for leafs
+  tasks:
+  - name: Load variables for underlay into dictionary
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+      name: underlay
+  - name: Generate EVPN underlay config file from variables + template
+    template:
+      src: "{{lookup('env','PWD')}}/templates/leaf_underlay.j2"
+      dest: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_underlay.cfg"
+
+
+- hosts: spines_DC1, spines_DC2
+  name: Generate underlay/EVPN config for spines
+  tasks:
+  - name: Load variables for underlay into dictionary
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+      name: underlay
+  - name: Generate EVPN underlay config file from variables + template
+    template:
+      src: "{{lookup('env','PWD')}}/templates/spine_underlay.j2"
+      dest: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_underlay.cfg"
+
+
+
+- hosts: leafs_DC1, leafs_DC2
+  name: Generate eBGP-based VXLAN Overlay/Tenants for leafs
+  tags: VXLAN
+  tasks:
+  - name: Load YAML into dictionary
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/underlay.yml"
+      name: underlay
+  - name: Load YAML for VXLAN into dictionary
+    include_vars:
+      file: "{{lookup('env','PWD')}}/vars/VXLAN_Tenants.yml"
+      name: VXLAN
+  - name: Gen leaf VXLAN config
+    template:
+      src: "{{lookup('env','PWD')}}/templates/VXLAN.j2"
+      dest: "{{lookup('env','PWD')}}/configs/dynamic/{{inventory_hostname}}/{{inventory_hostname}}_VXLAN.cfg"
